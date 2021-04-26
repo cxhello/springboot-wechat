@@ -6,12 +6,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@MapperScan("com.cxhello.admin.dao")
+@MapperScan("com.cxhello.example.dao")
 @EnableTransactionManagement
-public class SpringbootWechatApplication {
+public class SpringbootWeChatApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootWechatApplication.class, args);
+        SpringApplication.run(SpringbootWeChatApplication.class, args);
     }
 
 }

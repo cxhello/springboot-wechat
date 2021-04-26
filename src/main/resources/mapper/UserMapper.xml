@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cxhello.example.dao.UserDao">
+
+    <resultMap id="BaseResultMap" type="com.cxhello.example.entity.User">
+        <result property="id" column="id"></result>
+        <result property="openId" column="open_id"></result>
+        <result property="nickName" column="nick_name"></result>
+        <result property="headImgUrl" column="head_img_url"></result>
+        <result property="unionId" column="union_od"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="createUser" column="create_user"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="updateUser" column="update_user"></result>
+        <result property="isDelete" column="is_delete"></result>
+    </resultMap>
+
+</mapper>

@@ -1,7 +1,10 @@
 package com.cxhello.example.util;
 
 import com.alibaba.fastjson.JSON;
-import com.cxhello.example.WeChatAccessToken;
+import com.cxhello.example.constant.WeChatAccessTokenConstant;
+import com.cxhello.example.constant.WeChatUserInfoConstant;
+import com.cxhello.example.entity.WeChatAccessToken;
+import com.cxhello.example.entity.WeChatUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,12 +85,12 @@ public class WeChatUtil {
         }
         HashMap map = JSON.parseObject(result, HashMap.class);
         WeChatAccessToken weChatAccessToken = new WeChatAccessToken();
-        weChatAccessToken.setAccessToken(map.get("access_token").toString());
-        weChatAccessToken.setOpenId(map.get("openid").toString());
+        weChatAccessToken.setAccessToken(map.get(WeChatAccessTokenConstant.ACCESS_TOKEN).toString());
+        weChatAccessToken.setOpenId(map.get(WeChatAccessTokenConstant.OPEN_ID).toString());
         return weChatAccessToken;
     }
 
-    public static String getUserInfo(WeChatAccessToken weChatAccessToken) {
+    public static WeChatUserInfo getUserInfo(WeChatAccessToken weChatAccessToken) {
         String userInfoUrl = String.format(USER_INFO_URL, weChatAccessToken.getAccessToken(), weChatAccessToken.getOpenId());
         String result = null;
         try {
@@ -96,7 +99,22 @@ public class WeChatUtil {
             logger.error("System error", e);
         }
         HashMap map = JSON.parseObject(result, HashMap.class);
-        return null;
+        WeChatUserInfo weChatUserInfo = assembleWeChatUserInfo(map);
+        return weChatUserInfo;
+    }
+
+    private static WeChatUserInfo assembleWeChatUserInfo(HashMap map) {
+        WeChatUserInfo weChatUserInfo = new WeChatUserInfo();
+        weChatUserInfo.setOpenId(map.get(WeChatUserInfoConstant.OPEN_ID).toString());
+        weChatUserInfo.setNickName(map.get(WeChatUserInfoConstant.NICK_NAME).toString());
+        weChatUserInfo.setSex(map.get(WeChatUserInfoConstant.SEX).toString());
+        weChatUserInfo.setProvince(map.get(WeChatUserInfoConstant.PROVINCE).toString());
+        weChatUserInfo.setCity(map.get(WeChatUserInfoConstant.CITY).toString());
+        weChatUserInfo.setCountry(map.get(WeChatUserInfoConstant.COUNTRY).toString());
+        weChatUserInfo.setHeadImgUrl(map.get(WeChatUserInfoConstant.HEAD_IMG_URL).toString());
+        weChatUserInfo.setProvince(map.get(WeChatUserInfoConstant.PRIVILEGE).toString());
+        weChatUserInfo.setUnionId(map.get(WeChatUserInfoConstant.UNION_ID).toString());
+        return weChatUserInfo;
     }
 
 }

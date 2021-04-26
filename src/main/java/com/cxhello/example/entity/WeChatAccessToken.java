@@ -1,4 +1,4 @@
-package com.cxhello.example;
+package com.cxhello.example.entity;
 
 import lombok.Data;
 
