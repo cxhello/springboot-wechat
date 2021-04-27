@@ -18,7 +18,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insert(User user) {
+        userDao.insertSelective(user);
+    }
 
+    @Override
+    public User getUserByOpenId(String openId) {
+        User user = new User();
+        user.setIsDelete(0);
+        user.setOpenId(openId);
+        return userDao.selectOne(user);
     }
 
 }

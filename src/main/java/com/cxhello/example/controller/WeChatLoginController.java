@@ -36,16 +36,19 @@ public class WeChatLoginController {
     @GetMapping("callback")
     public String callBack(String code, String state) {
         WeChatAccessToken weChatAccessToken = WeChatUtil.getAccessToken(code);
-        WeChatUserInfo weChatUserInfo = WeChatUtil.getUserInfo(weChatAccessToken);
-        logger.info("微信用户个人信息: {}", JSON.toJSONString(weChatUserInfo));
-        User user = new User();
-        user.setOpenId(weChatUserInfo.getOpenId());
-        user.setNickName(weChatUserInfo.getNickName());
-        user.setHeadImgUrl(weChatUserInfo.getHeadImgUrl());
-        user.setUnionId(weChatUserInfo.getUnionId());
-        user.setCreateTime(new Date());
-        user.setCreateUser("system");
-        userService.insert(user);
+        User user = userService.getUserByOpenId(weChatAccessToken.getOpenId());
+        if (user == null) {
+            WeChatUserInfo weChatUserInfo = WeChatUtil.getUserInfo(weChatAccessToken);
+            logger.info("微信用户个人信息: {}", JSON.toJSONString(weChatUserInfo));
+            user = new User();
+            user.setOpenId(weChatUserInfo.getOpenId());
+            user.setNickName(weChatUserInfo.getNickName());
+            user.setHeadImgUrl(weChatUserInfo.getHeadImgUrl());
+            user.setUnionId(weChatUserInfo.getUnionId());
+            user.setCreateTime(new Date());
+            user.setCreateUser("system");
+            userService.insert(user);
+        }
         return "index";
     }
 

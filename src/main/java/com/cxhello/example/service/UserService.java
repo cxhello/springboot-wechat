@@ -14,4 +14,11 @@ public interface UserService {
      */
     void insert(User user);
 
+    /**
+     * 根据openId查询用户
+     * @param openId
+     * @return
+     */
+    User getUserByOpenId(String openId);
+
 }
