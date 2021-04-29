@@ -49,7 +49,7 @@ public class WeChatLoginController {
             user.setCreateUser("system");
             userService.insert(user);
         }
-        return "index";
+        return "redirect:http://localhost:8150/index";
     }
 
 }
