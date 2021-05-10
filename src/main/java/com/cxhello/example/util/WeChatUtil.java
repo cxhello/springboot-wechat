@@ -67,12 +67,13 @@ public class WeChatUtil {
     }
 
     public static String generateWxQrCode() {
+        String redirectUrl = null;
         try {
-            weChatRedirectUrl = URLEncoder.encode(weChatRedirectUrl, CHARSET_NAME);
+            redirectUrl = URLEncoder.encode(weChatRedirectUrl, CHARSET_NAME);
         } catch (UnsupportedEncodingException e) {
             logger.error("System error", e);
         }
-        return String.format(LOGIN_URL, weChatAppId, weChatRedirectUrl, STATE);
+        return String.format(LOGIN_URL, weChatAppId, redirectUrl, STATE);
     }
 
     public static WeChatAccessToken getAccessToken(String code) {
